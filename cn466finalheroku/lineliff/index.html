@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>LIFF - LINE Front-end</title>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    
+    function editSelects(event) {
+      if (event.target.value == 'cucumber1') {
+        liff.sendMessages([{ 'type': 'text', 'text': "cucumber_1" }])
+      }
+      else if (event.target.value == 'cucumber2') {
+
+       liff.sendMessages([{ 'type': 'text', 'text': "cucumber_2" }])
+      }
+      else if (event.target.value == 'cucumber3') {
+        liff.sendMessages([{ 'type': 'text', 'text': "cucumber_3" }])
+      }
+      else if (event.target.value == 'cucumber4') {
+        liff.sendMessages([{ 'type': 'text', 'text': "cucumber_4" }])
+        console.log("dinoniceee")
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <script>
+    window.onload = function () {
+      liff.init({ liffId: '1656733499-Q3Blnrye' })
+      if(liff.isLoggedIn()){console.log("in")}
+      else {console.log("out")}
+    }
+  </script>
+
+  <ons-page>
+    <ons-toolbar>
+      <div class="center">Select input</div>
+    </ons-toolbar>
+
+    <h3>Choose cucumber</h3>
+    <ons-select id="choose-sel" onchange="editSelects(event)">
+      <option value="...">Select</option>
+      <option value="cucumber1">cucumber1</option>
+      <option value="cucumber2">cucumber2</option>
+      <option value="cucumber3">cucumber3</option>
+      <option value="cucumber4">cucumber4</option>
+    </ons-select>
+    <h4 id="demo"></h4>
+  </ons-page>
+
+</body>
+
+</html>
