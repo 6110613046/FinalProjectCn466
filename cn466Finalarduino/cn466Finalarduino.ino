@@ -161,5 +161,5 @@ void loop() {
     connectBroker();
   }
   mqttClient.loop();
-  delay(100);
+  delay(15000);
 }
