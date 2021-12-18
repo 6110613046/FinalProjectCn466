@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const myLiffId = "1656542318-xAQePreJ";
+
 
 const mqtt = require('mqtt');
 var client = mqtt.connect('mqtt://broker.hivemq.com')
 const topic = "cn466/final/pakcawat/temphum"
 
 const { MongoClient } = require("mongodb");
-var url = "mongodb://userDatabase:nmgvF9qIPMzClitj@database-shard-00-00.xfjlg.mongodb.net:27017,database-shard-00-01.xfjlg.mongodb.net:27017,database-shard-00-02.xfjlg.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-xa84jq-shard-0&authSource=admin&retryWrites=true&w=majority";
+var url = process.env.URL_MONGODB;
 const clientMongo = new MongoClient(url);
 const dbName = "test";
 const axios = require('axios');
@@ -15,22 +15,22 @@ const axios = require('axios');
 const admin = require('firebase-admin');
 admin.initializeApp({
   credential: admin.credential.cert({
-    "project_id": "datacenter-3975d",
-    "private_key_id": "78eb712ee707cf1898caa39227c81f9a14897ca9",
+    "project_id": process.env.TYPE,
+    "private_key_id": process.env.PRIVATE_KEY_ID,
     "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCwRruYLAYpF+h2\nGbjin/CZMfl/Ltchy2ieTagg2ior5pb+E9fiylpY/ipxi7m/7SYt1pRBxds3Srd7\nuHjZQxydZvgAateGeYUXU+lydGxqKI8VV5rZv6W50sWLqqWc24tnd/zKEiFRaDYN\nMSNcRXVXyV0nNtebfmSfSqPQozc8IjwpAcCnf/14TjmpJCqQnDo0qBEFlGhbw9Wb\nCjL69zv3U00R7N/5+b998ZkJA9NsHCBKyOlWYB+8lqV/UsKq0IrUcQ2IILFO9clt\nV2ckxCvObyrumPl/Z0o3QD7XNO/422v5DeLurc0dLRVi7NxySG9oIm5gFw1qMLTj\nZwqBcimvAgMBAAECggEAVNMMtZrFsiOTlLUm/0LIo+dk8HspQdVgeADVfU2OSobR\nNN12nucR184ivXXnwgALxbYCrK3Zob8+EPaBjMbbL7EbeRPwt4Cld0bFSPLWMrVm\nuPXpiYvL42IV9nH89MC+0eDuz4wu5T4Y+HsjUWUJJN+8iEC/Os90+yQPNTg9PZ1L\nKgX6z2DQU5OGey3NrojxAiXV2ladJyrdY24qsl05ka+5T6Ou2526QsMvirn4TRYY\nvH/QJRDrfjbXO1e7qlpWxH3VlcxicW3zLoko9AAdndVw7wyQnG+kc/feWPkrkyy/\nwcYvDJOxNdkhBVRrBR5i/rN62Un+FhkJNvq9dQho9QKBgQD1rnElNjbq60Tka8AZ\ntyXgKiMphi8byG8Z/Kiqc6DGHzJoc4rTgluSg2Wb+6OIGGR50CIcGzOZjwE7eBwg\nbYF9BeUDR9MVyKi3LxAyIoFq3CzuNWdv1aHPqB4XfRTQjrvm8gTWryiha84Qf/uK\nO3LoAeMSunELeiX1l1vpFe15MwKBgQC3rgyoRgSKzjzwpBzKYc/w5shk0cgBQA6B\n3BYYe0JpE3Yn8m2rRee2vgCXSXVToHUuU3SX4iboApDeZ4M08I2SCyXiPhyVYIba\n93xtDisu8J5XVC++EfuZe2zl1yXxT+BZZTMhfFO3T5FdiOtRxYBUdwbXz7T5LIuc\nfBRhi/DllQKBgQC4owoLgkwRjxDubgAoE1mWt3RHj721rpO4vwZvW4jXfLiggT0z\nKgPx/2gMqzhCXrqcRYxs/RBxdmThsanJwSKQuC5docwE0hHh4a/VTdNfYOsvdtku\n1inOazV6R5muB6c1sGtsgKUTc3ahNd3wDC+WJ1zlRVMR4hHHGaKMcNtQuwKBgDz0\nqMSrP9SkrrqZa+iJ300t+XDj4YDwth/IXxjOxvJCACMvo8+ECmqt0VpjiWkwRdMS\n5Q2GgqzaNSNprLRD5GeEBZV4UVoNR5OhMAys+A3C0nleud1U8G8186Su6quTe3uP\nRxGkxc9+u1oUFyvy5Cyjt4SlLITIkKhk0QqyO0alAoGBAMicjkfLWHo+lePCB5zf\npKgVylPVD4bQP+UQMP51YKt1pPFL001gqZlMxArvy9/jc4H5N0DV0XY1i8d7z8eg\nEK3fLqwgi0Hm+rXEzZK8Y4BR6gQ9/1Bmcs5S0FNpio9NojqCUpGIfxVRpRCfJDiG\nJcGijm1UA1S2o8WpDiwdYjKM\n-----END PRIVATE KEY-----\n",
-    "client_email": "firebase-adminsdk-jire3@datacenter-3975d.iam.gserviceaccount.com",
-    "client_id": "115428681060034945833",
+    "client_email": process.env.CLIENT_EMAIL,
+    "client_id": process.env.CLIENT_ID,
   }
   ),
-  databaseURL: "https://datacenter-3975d-default-rtdb.asia-southeast1.firebasedatabase.app"
+  databaseURL: process.env.URL_FIREBASE
 });
 const db = admin.database();
 
 
 // line 
 const config = {
-  channelAccessToken: "62xva8kCVqL9kX6m7MgRraRjVEr6nasHzB5yx51YBuG461+RqVBVN9XQihOZsu3KRNQYihbtgZ51mNf2E0FwyEwXp9u6VJElo20Spn7NQTpo5+uLU83Pm4Z6sbxOEkTR92e9bhCovUpMocU254HPfQdB04t89/1O/w1cDnyilFU=",
-  channelSecret: "067c166eef46fcc6a656e38f784f3fb5",
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+  channelSecret: process.env.CHANNEL_SECRET,
 };
 const line = require('@line/bot-sdk');
 const client_line = new line.Client(config);
@@ -48,6 +48,8 @@ var Outside_realtimehum = null;
 var predict = null;
 var textpredict = null;
 var guide = null;
+var xtemp = null;
+var yhum = null;
 
 
 
@@ -118,11 +120,19 @@ function updateRealtimetemp() {
 
   axios.get('http://api.openweathermap.org/data/2.5/weather?q=Pathumthani&appid=a668c5435556dad665d1341486b0e39f')
     .then((res) => {
-      Outside_realtimetemp = res['data']['main']['temp'] - 272.15.toFixed(2);
+      Outside_realtimetemp = (res['data']['main']['temp'] - 272.15).toFixed(2);
       Outside_realtimehum = res['data']['main']['humidity'];
 
     })
 };
+
+function othertemphum(msg1) {
+  axios.get('http://api.openweathermap.org/data/2.5/weather?q=' + msg1 + '&appid=a668c5435556dad665d1341486b0e39f')
+    .then((res) => {
+      xtemp = (res['data']['main']['temp'] - 272.15).toFixed(2);
+      yhum = res['data']['main']['humidity'];
+    })
+}
 
 async function startAddData(vauleinputtemp, vauleinputhum) {
 
@@ -350,9 +360,43 @@ async function handleEvent(event) {
     }
     return client_line.replyMessage(event.replyToken, msg);
   }
+  else if (msg1.includes("$")) {
+
+    msg1 = msg1.substring(1);
+    othertemphum(msg1);
+
+    try {
+      msg = [
+        {
+          "type": "text",
+          "text": "อุณหภูมิจัดหวัด" + msg1 + " = " + xtemp + " C"
+        }
+        , {
+          "type": "text",
+          "text": "ความชื้นจัดหวัด" + msg1 + " = " + yhum + " %"
+        }
+
+      ];
+    }
+    catch (e) {
+      var msg = {
+        type: 'text',
+        text: 'ไม่มีข้อมูล'
+      }
+      console.log(e);
+    }
+    finally {
+      console.log("entering and leaving the finally block");
+    }
+    return client_line.replyMessage(event.replyToken, msg);
+  }
 
 
-  else { return client_line.replyMessage(event.replyToken, msg); }
+
+  else {
+    var msg = { type: 'text', text: 'โปรดดูการใช้งานในไลน์รีสเมนูครับ' }
+    return client_line.replyMessage(event.replyToken, msg);
+  }
 
 }
 

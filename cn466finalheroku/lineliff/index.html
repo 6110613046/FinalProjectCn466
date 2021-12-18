@@ -9,22 +9,27 @@
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    
-    function editSelects(event) {
-      if (event.target.value == 'cucumber1') {
-        liff.sendMessages([{ 'type': 'text', 'text': "cucumber_1" }])
-      }
-      else if (event.target.value == 'cucumber2') {
 
-       liff.sendMessages([{ 'type': 'text', 'text': "cucumber_2" }])
+    function editSelects(event) {
+      if (event.target.value == 'อุณหภูมิ') {
+        liff.sendMessages([{ 'type': 'text', 'text': "อุณหภูมิ" }])
+        document.getElementById("demo").innerHTML = "โปรดดูข้อมูลอุณหภูมิที่ไลน์ของคุณ";
       }
-      else if (event.target.value == 'cucumber3') {
-        liff.sendMessages([{ 'type': 'text', 'text': "cucumber_3" }])
+      else if (event.target.value == 'ความชื้น') {
+
+        liff.sendMessages([{ 'type': 'text', 'text': "ความชื้น" }])
+        document.getElementById("demo").innerHTML = "โปรดดูข้อมูลความชื้นที่ไลน์ของคุณ";
       }
-      else if (event.target.value == 'cucumber4') {
-        liff.sendMessages([{ 'type': 'text', 'text': "cucumber_4" }])
-        console.log("dinoniceee")
+
+    }
+    function editSelects2(event) {
+      if (event.target.value == "select") { document.getElementById("demo2").innerHTML = "โปรดเลือกจังหวัดที่ต้องการ"; }
+      else {
+
+        liff.sendMessages([{ 'type': 'text', 'text': "$" + event.target.value }])
+        document.getElementById("demo2").innerHTML = "โปรดดูข้อมูลอุณหภูมิของจังหวัด" + event.target.value +"ที่ไลน์ของคุณ";
       }
+
     }
   </script>
 </head>
@@ -34,8 +39,8 @@
   <script>
     window.onload = function () {
       liff.init({ liffId: '1656733499-Q3Blnrye' })
-      if(liff.isLoggedIn()){console.log("in")}
-      else {console.log("out")}
+      if (liff.isLoggedIn()) { console.log("in") }
+      else { console.log("out") }
     }
   </script>
 
@@ -43,18 +48,48 @@
     <ons-toolbar>
       <div class="center">Select input</div>
     </ons-toolbar>
-
-    <h3>Choose cucumber</h3>
-    <ons-select id="choose-sel" onchange="editSelects(event)">
-      <option value="...">Select</option>
-      <option value="cucumber1">cucumber1</option>
-      <option value="cucumber2">cucumber2</option>
-      <option value="cucumber3">cucumber3</option>
-      <option value="cucumber4">cucumber4</option>
-    </ons-select>
-    <h4 id="demo"></h4>
+    <div id=group>
+      <h3>เลือกข้อมูลที่ต้องการดู</h3>
+      <ons-select id="choose-sel" onchange="editSelects(event)">
+        <option value="select">Select</option>
+        <option value="อุณหภูมิ">อุณหภูมิ</option>
+        <option value="ความชื้น">ความชื้น</option>
+      </ons-select>
+      <h4 id="demo"></h4>
   </ons-page>
-
+  </div>
+  <div id=group2>
+    <h3>เลือกดูข้อมูลอุณหภูมิที่จังหวัดอื่นๆในภาคกลาง</h3>
+    <ons-select id="choose-sel" onchange="editSelects2(event)">
+      <option value="...">Select</option>
+      <option value="Pathumthani">Pathumthani</option>
+      <option value="Bangkok">Bangkok</option>
+      <option value="Nonthaburi">Nonthaburi</option>
+      <option value="Lopburi">Lopburi</option>
+      <option value="Sukhothai">Sukhothai</option>
+      <option value="Phra Nakhon Si Ayutthaya">Phra Nakhon Si Ayutthaya</option>
+    </ons-select>
+    <h4 id="demo2"></h4>
+    </ons-page>
+  </div>
 </body>
 
 </html>
+
+<style scoped>
+  #group {
+    max-width: 500px;
+    margin: auto;
+    background: rgb(138, 193, 255);
+    padding: 10px;
+
+  }
+
+  #group2 {
+    max-width: 500px;
+    margin: auto;
+    background: rgb(153, 255, 196);
+    padding: 10px;
+
+  }
+</style>
