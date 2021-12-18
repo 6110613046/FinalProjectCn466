@@ -125,7 +125,7 @@ void loop() {
   char json_body[200];
    const char json_tmpl[] = "{\"Pressure\": %.2f," 
                           "\"Temperature\": %.2f," 
-                          "\"Tumidity\": %.2f}";
+                          "\"Humidity\": %.2f}";
   sensors_event_t temp, humid;
   sensors_event_t a, g;
 
